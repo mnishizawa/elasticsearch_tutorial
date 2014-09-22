@@ -2,7 +2,8 @@
 curl -s -XGET 'http://192.168.5.10:9200/mycollections/book/_mapping?pretty'
 
 #explicitly map so we don't have ambiguity
-curl -s -XPUT ‘http://192.168.5.10:9200/mycollections/book/_mapping’ -d ‘{
+curl -s -XDELETE 'http://192.168.5.10:9200/mycollections/book'
+curl -s -XPUT 'http://192.168.5.10:9200/mycollections/book/_mapping' -d '{
    "properties": {
       "author": { 
         "type": "string" 
@@ -14,14 +15,14 @@ curl -s -XPUT ‘http://192.168.5.10:9200/mycollections/book/_mapping’ -d ‘{
         "type": "boolean" 
       },
       "pages": { 
-        "type": "string" 
+        "type": "integer" 
       },
       "title": {
         "type": "string", 
         "index": "not_analyzed" 
       }
     }
-}’
+}'
 
 # exercise some of the other implicit mappings
 curl -s -XPUT 'http://192.168.5.10:9200/mycollections/music/1' -d'{
